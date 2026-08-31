@@ -52,18 +52,31 @@ public class AppointmentEntity {
     private ConsultationType consultationType;
 
     @Column(nullable = false,precision = 10,scale = 2)
-    private BigDecimal base_fee;
+    private BigDecimal baseFee;
 
     @Column(nullable = false,precision = 10,scale = 2)
-    private BigDecimal final_amount;
+    private BigDecimal finalAmount;
 
+    @Column(nullable = false, unique = true)
     private String bookingReference;
 
     @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     private AppointmentStatus appointmentStatus;
 
     @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     private PaymentStatus paymentStatus;
+
+    private LocalDateTime confirmedAt;
+
+    private LocalDateTime doctorJoinedAt;
+
+    private LocalDateTime consultationStartedAt;
+
+    private LocalDateTime consultationEndedAt;
+
+    private String cancellationReason;
 
     @CreationTimestamp
     @Column(updatable = false)
