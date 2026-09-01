@@ -16,7 +16,7 @@ public class HospitalRequest {
 
     @NotBlank(message = "Hospital name is required")
     @Size(max = 150, message = "Hospital name cannot exceed 150 characters")
-    private String name;
+    private String hospitalName;
 
     @NotBlank(message = "Address is required")
     private String address;

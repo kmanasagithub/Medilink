@@ -2,7 +2,7 @@ spring:
   application:
     name: medilink-backend
 
-  profile:
+  profiles:
     active: dev
 
   datasource:

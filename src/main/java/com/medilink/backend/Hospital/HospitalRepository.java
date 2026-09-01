@@ -6,6 +6,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Repository
@@ -25,4 +26,6 @@ public interface HospitalRepository extends JpaRepository<HospitalEntity, UUID> 
             @Param("state") String state,
             @Param("country") String country
     );
+
+    Optional<HospitalEntity> findByUserId(UUID userId);
 }

@@ -28,8 +28,6 @@ public class DoctorResponse {
 
     private String bio;
 
-    private BigDecimal consultationFee;
-
     private VerificationStatus verificationStatus;
 
     private DoctorStatus doctorStatus;

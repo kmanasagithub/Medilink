@@ -14,7 +14,7 @@ import java.util.UUID;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/v1.0")
+@RequestMapping
 public class AvailabilityController {
 
     private final AvailabilityService availabilityService;

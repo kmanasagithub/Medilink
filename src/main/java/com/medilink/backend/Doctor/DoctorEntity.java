@@ -47,9 +47,6 @@ public class DoctorEntity {
 
     private String bio;
 
-    @Column(nullable = false, precision = 10, scale = 2)
-    private BigDecimal consultationFee;
-
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private VerificationStatus verificationStatus;

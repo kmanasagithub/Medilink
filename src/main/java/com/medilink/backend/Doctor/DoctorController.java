@@ -12,17 +12,12 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.UUID;
 
-@RequestMapping("/api/v1.0/doctors")
+@RequestMapping("/doctors")
 @RestController
 @RequiredArgsConstructor
 public class DoctorController {
 
     private final DoctorService doctorService;
-
-    @PostMapping
-    public ResponseEntity<DoctorResponse> createDoctor(@RequestBody @Valid DoctorRequest request) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(doctorService.createDoctor(request));
-    }
 
     // View/search all doctors
     @GetMapping
@@ -48,14 +43,8 @@ public class DoctorController {
         return ResponseEntity.ok(doctorService.updateMyProfile(request));
     }
 
-    // Logged-in doctor reactivates own profile
-    @PatchMapping("/me/activate")
-    public ResponseEntity<DoctorResponse> activateMyProfile() {
-        return ResponseEntity.ok(doctorService.activateMyProfile());
-    }
-
     // Logged-in doctor deactivates own profile
-    @DeleteMapping("/me")
+    @DeleteMapping("/me/deactivate")
     public ResponseEntity<Void> deleteMyProfile() {
         doctorService.deleteMyProfile();
         return ResponseEntity.noContent().build();

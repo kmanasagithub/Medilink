@@ -29,8 +29,4 @@ public class DoctorRequest {
     private Integer experienceYears;
 
     private String bio;
-
-    @NotNull(message = "Consultation fee is required")
-    @DecimalMin(value = "0.0", inclusive = true)
-    private BigDecimal consultationFee;
 }

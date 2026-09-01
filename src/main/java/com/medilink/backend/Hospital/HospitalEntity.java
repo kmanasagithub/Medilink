@@ -2,6 +2,7 @@ package com.medilink.backend.Hospital;
 
 import com.medilink.backend.DoctorHospital.DoctorHospitalEntity;
 import com.medilink.backend.Hospital.Enum.HospitalStatus;
+import com.medilink.backend.User.UserEntity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -23,8 +24,16 @@ public class HospitalEntity {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
+    @OneToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(
+            name = "user_id",
+            unique = true,
+            nullable = false
+    )
+    private UserEntity user;
+
     @Column(nullable = false)
-    private String name;
+    private String hospitalName;
 
     @Column(nullable = false)
     private String address;
@@ -37,8 +46,6 @@ public class HospitalEntity {
 
     @Column(nullable = false)
     private String country;
-
-    private String phone;
 
     private String website;
 

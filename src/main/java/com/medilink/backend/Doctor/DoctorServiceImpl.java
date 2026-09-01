@@ -10,7 +10,6 @@ import com.medilink.backend.User.UserEntity;
 import com.medilink.backend.User.UserRepository;
 import com.medilink.backend.User.dto.UserResponse;
 import lombok.RequiredArgsConstructor;
-import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -24,39 +23,6 @@ public class DoctorServiceImpl implements DoctorService{
     private final DoctorRepository doctorRepository;
     private final UserRepository userRepository;
 
-    @Override
-    @Transactional
-    public DoctorResponse createDoctor(DoctorRequest request) {
-        UserEntity user = userRepository.findById(request.getUserId()).
-                orElseThrow(() -> new RuntimeException("User not found with ID: "
-                        + request.getUserId()));
-
-        if (user.getRole() != Role.DOCTOR) {
-            throw new RuntimeException(
-                    "User must have DOCTOR role to create a doctor profile"
-            );
-        }
-
-        if (doctorRepository.existsByUserId(user.getId())) {
-            throw new RuntimeException("Doctor profile already exists");
-        }
-
-        DoctorEntity doctor = DoctorEntity.builder()
-                .user(user)
-                .licenseNumber(request.getLicenseNumber())
-                .qualification(request.getQualification())
-                .specialization(request.getSpecialization())
-                .experienceYears(request.getExperienceYears())
-                .bio(request.getBio())
-                .consultationFee(request.getConsultationFee())
-                .verificationStatus(VerificationStatus.PENDING)
-                .doctorStatus(DoctorStatus.INACTIVE)
-                .build();
-
-        DoctorEntity savedDoctor = doctorRepository.save(doctor);
-
-        return convertToDoctorResponse(savedDoctor);
-    }
 
     @Override
     public DoctorResponse getDoctorById(UUID doctorId) {
@@ -126,10 +92,6 @@ public class DoctorServiceImpl implements DoctorService{
             doctor.setBio(request.getBio());
         }
 
-        if (request.getConsultationFee() != null) {
-            doctor.setConsultationFee(request.getConsultationFee());
-        }
-
         return convertToDoctorResponse(doctor);
 
     }
@@ -148,26 +110,6 @@ public class DoctorServiceImpl implements DoctorService{
 
         doctor.setDoctorStatus(DoctorStatus.INACTIVE);
 
-    }
-
-    @Override
-    @Transactional
-    public DoctorResponse activateMyProfile() {
-
-        UUID userId = getLoggedInUserId();
-
-        DoctorEntity doctor = doctorRepository.findByUserId(userId)
-                .orElseThrow(() ->
-                        new RuntimeException("Doctor profile not found")
-                );
-
-        if (doctor.getDoctorStatus() != DoctorStatus.INACTIVE) {
-            throw new RuntimeException("Doctor is not inactive");
-        }
-
-        doctor.setDoctorStatus(DoctorStatus.ACTIVE);
-
-        return convertToDoctorResponse(doctor);
     }
 
     private UUID getLoggedInUserId() {
@@ -193,7 +135,6 @@ public class DoctorServiceImpl implements DoctorService{
                 .specialization(doctor.getSpecialization())
                 .experienceYears(doctor.getExperienceYears())
                 .bio(doctor.getBio())
-                .consultationFee(doctor.getConsultationFee())
                 .verificationStatus(doctor.getVerificationStatus())
                 .doctorStatus(doctor.getDoctorStatus())
                 .build();

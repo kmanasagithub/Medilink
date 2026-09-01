@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class HospitalUpdateRequest {
 
-    private String name;
+    private String hospitalName;
 
     private String address;
 

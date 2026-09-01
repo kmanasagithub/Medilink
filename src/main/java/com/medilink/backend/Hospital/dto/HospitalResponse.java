@@ -16,7 +16,7 @@ public class HospitalResponse {
 
     private UUID id;
 
-    private String name;
+    private String hosiptalName;
 
     private String address;
 

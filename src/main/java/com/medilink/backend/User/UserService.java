@@ -9,11 +9,9 @@ import java.util.UUID;
 
 public interface UserService {
 
-    UserResponse createUser(UserRequest request);
+    UserResponse getMyProfile();
 
-    UserResponse getUser(UUID userId);
+    UserResponse updateMyProfile(UserUpdateRequest request);
 
-    List<UserResponse> getAllUsers();
-
-    UserResponse updateUser(UserUpdateRequest request, UUID userId);
+//    UserResponse createUser(UserRequest request);
 }

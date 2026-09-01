@@ -10,8 +10,6 @@ import java.util.UUID;
 
 public interface DoctorService {
 
-    DoctorResponse createDoctor(@Valid DoctorRequest request);
-
     DoctorResponse getDoctorById(UUID doctorId);
 
     List<DoctorResponse> getAllDoctors();
@@ -22,5 +20,4 @@ public interface DoctorService {
 
     void deleteMyProfile();
 
-    DoctorResponse activateMyProfile();
 }

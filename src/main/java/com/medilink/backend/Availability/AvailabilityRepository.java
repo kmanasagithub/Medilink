@@ -46,7 +46,7 @@ public interface AvailabilityRepository extends JpaRepository<DoctorAvailability
 
     @Query("""
         SELECT a 
-        FROM AvailabilityEntity a
+        FROM DoctorAvailabilityEntity a
         WHERE a.doctor.id = :doctorId
                 AND a.dayOfWeek = :dayOfWeek
                 AND a.active = true

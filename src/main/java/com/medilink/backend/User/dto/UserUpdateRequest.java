@@ -15,9 +15,6 @@ public class UserUpdateRequest {
 
     private String name;
 
-    @Email
-    private String email;
-
     @Pattern(
             regexp = "^[6-9]\\d{9}$",
             message = "Phone number must be a valid 10-digit Indian mobile number"

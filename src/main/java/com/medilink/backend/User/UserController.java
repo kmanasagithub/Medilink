@@ -14,29 +14,18 @@ import java.util.UUID;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/v1.0/users")
+@RequestMapping("/users")
 public class UserController {
 
     private final UserService userService;
 
-    @PostMapping
-    private ResponseEntity<UserResponse> createUser(@RequestBody @Valid UserRequest request) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(userService.createUser(request));
+    @GetMapping("/me")
+    private ResponseEntity<UserResponse> getMyProfile() {
+        return ResponseEntity.status(HttpStatus.OK).body(userService.getMyProfile());
     }
 
-    @GetMapping("/{userId}")
-    private ResponseEntity<UserResponse> getUser(@PathVariable UUID userId) {
-        return ResponseEntity.status(HttpStatus.OK).body(userService.getUser(userId));
-    }
-
-    @GetMapping
-    private ResponseEntity<List<UserResponse>> getAllUsers() {
-        return ResponseEntity.status(HttpStatus.OK).body(userService.getAllUsers());
-    }
-
-    @PatchMapping("/{userId}")
-    private ResponseEntity<UserResponse> updateUser(@RequestBody @Valid UserUpdateRequest userRequest,
-                                                    @PathVariable UUID userId) {
-        return ResponseEntity.status(HttpStatus.OK).body(userService.updateUser(userRequest,userId));
+    @PatchMapping("/me")
+    private ResponseEntity<UserResponse> updateUser(@RequestBody @Valid UserUpdateRequest userRequest) {
+        return ResponseEntity.status(HttpStatus.OK).body(userService.updateMyProfile(userRequest));
     }
 }
